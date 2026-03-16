@@ -3,7 +3,21 @@
     const html = document.documentElement;
     const STORAGE_KEY = 'danilokovacs-theme';
 
+    function isLocalStorageAvailable() {
+        try {
+            const testKey = '__storage_test__';
+            localStorage.setItem(testKey, testKey);
+            localStorage.removeItem(testKey);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
     function retrieveStoredTheme() {
+        if (!isLocalStorageAvailable()) {
+            return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
         const savedTheme = localStorage.getItem(STORAGE_KEY);
         if (savedTheme) return savedTheme;
         return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -11,7 +25,13 @@
 
     function applyThemeToDocument(theme) {
         html.setAttribute('data-theme', theme);
-        localStorage.setItem(STORAGE_KEY, theme);
+        if (isLocalStorageAvailable()) {
+            try {
+                localStorage.setItem(STORAGE_KEY, theme);
+            } catch {
+                // Silently handle storage errors
+            }
+        }
 
         const announcement = document.createElement('div');
         announcement.setAttribute('aria-live', 'polite');
@@ -40,7 +60,7 @@
     }
 
     window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem(STORAGE_KEY)) {
+        if (!isLocalStorageAvailable() || !localStorage.getItem(STORAGE_KEY)) {
             applyThemeToDocument(e.matches ? 'dark' : 'light');
         }
     });
@@ -54,6 +74,17 @@
     const langToggle = document.getElementById('lang-toggle');
     const html = document.documentElement;
     const STORAGE_KEY = 'danilokovacs-lang';
+
+    function isLocalStorageAvailable() {
+        try {
+            const testKey = '__storage_test__';
+            localStorage.setItem(testKey, testKey);
+            localStorage.removeItem(testKey);
+            return true;
+        } catch {
+            return false;
+        }
+    }
 
     const translations = {
         en: {
@@ -177,13 +208,22 @@
     };
 
     function retrieveStoredLanguage() {
+        if (!isLocalStorageAvailable()) {
+            return 'pt';
+        }
         return localStorage.getItem(STORAGE_KEY) || 'pt';
     }
 
     function switchLanguageAndApplyTranslations(language) {
         html.setAttribute('data-lang', language);
         html.setAttribute('lang', language);
-        localStorage.setItem(STORAGE_KEY, language);
+        if (isLocalStorageAvailable()) {
+            try {
+                localStorage.setItem(STORAGE_KEY, language);
+            } catch {
+                // Silently handle storage errors
+            }
+        }
         updateDocumentContentWithTranslations(language);
         updateLanguageToggleAccessibilityLabels(language);
 
