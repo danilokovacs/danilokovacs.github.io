@@ -3,13 +3,13 @@
     const html = document.documentElement;
     const STORAGE_KEY = 'danilokovacs-theme';
 
-    function getCurrentTheme() {
+    function retrieveStoredTheme() {
         const savedTheme = localStorage.getItem(STORAGE_KEY);
         if (savedTheme) return savedTheme;
         return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
 
-    function setTheme(theme) {
+    function applyThemeToDocument(theme) {
         html.setAttribute('data-theme', theme);
         localStorage.setItem(STORAGE_KEY, theme);
 
@@ -21,19 +21,19 @@
         setTimeout(() => announcement.remove(), 1000);
     }
 
-    function toggleTheme() {
+    function switchTheme() {
         const currentTheme = html.getAttribute('data-theme');
-        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        applyThemeToDocument(currentTheme === 'dark' ? 'light' : 'dark');
     }
 
-    setTheme(getCurrentTheme());
+    applyThemeToDocument(retrieveStoredTheme());
 
     if (themeToggle) {
-        themeToggle.addEventListener('click', toggleTheme);
+        themeToggle.addEventListener('click', switchTheme);
         themeToggle.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                toggleTheme();
+                switchTheme();
             }
         });
         themeToggle.setAttribute('tabindex', '0');
@@ -41,7 +41,7 @@
 
     window.matchMedia?.('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
         if (!localStorage.getItem(STORAGE_KEY)) {
-            setTheme(e.matches ? 'dark' : 'light');
+            applyThemeToDocument(e.matches ? 'dark' : 'light');
         }
     });
 
@@ -176,42 +176,43 @@
         }
     };
 
-    function getCurrentLang() {
+    function retrieveStoredLanguage() {
         return localStorage.getItem(STORAGE_KEY) || 'pt';
     }
 
-    function setLanguage(lang) {
-        html.setAttribute('data-lang', lang);
-        localStorage.setItem(STORAGE_KEY, lang);
-        updateContent(lang);
-        updateLangToggle(lang);
+    function switchLanguageAndApplyTranslations(language) {
+        html.setAttribute('data-lang', language);
+        html.setAttribute('lang', language);
+        localStorage.setItem(STORAGE_KEY, language);
+        updateDocumentContentWithTranslations(language);
+        updateLanguageToggleAccessibilityLabels(language);
 
         const announcement = document.createElement('div');
         announcement.setAttribute('aria-live', 'polite');
         announcement.className = 'sr-only';
-        announcement.textContent = `Language changed to ${lang === 'en' ? 'English' : 'Portuguese'}`;
+        announcement.textContent = `Language changed to ${language === 'en' ? 'English' : 'Portuguese'}`;
         document.body.appendChild(announcement);
         setTimeout(() => announcement.remove(), 1000);
     }
 
-    function updateContent(lang) {
-        const trans = translations[lang];
+    function updateDocumentContentWithTranslations(language) {
+        const translationsForLang = translations[language];
         const profileName = document.querySelector('.profile-name');
-        if (profileName) profileName.textContent = trans['profile-name'];
+        if (profileName) profileName.textContent = translationsForLang['profile-name'];
 
         const welcomeTitle = document.querySelector('.section-title');
         if (welcomeTitle) {
             const emoji = welcomeTitle.querySelector('.emoji');
             welcomeTitle.innerHTML = '';
             welcomeTitle.appendChild(emoji);
-            welcomeTitle.appendChild(document.createTextNode(' ' + trans['welcome-title']));
+            welcomeTitle.appendChild(document.createTextNode(' ' + translationsForLang['welcome-title']));
         }
 
         const welcomeDescs = document.querySelectorAll('.section-description');
         if (welcomeDescs.length >= 3) {
-            welcomeDescs[0].textContent = trans['welcome-desc-1'];
-            welcomeDescs[1].textContent = trans['welcome-desc-2'];
-            welcomeDescs[2].textContent = trans['welcome-desc-3'];
+            welcomeDescs[0].textContent = translationsForLang['welcome-desc-1'];
+            welcomeDescs[1].textContent = translationsForLang['welcome-desc-2'];
+            welcomeDescs[2].textContent = translationsForLang['welcome-desc-3'];
         }
 
         const gradTitle = document.querySelector('.section-title-text');
@@ -219,47 +220,80 @@
             const emoji = gradTitle.querySelector('.emoji');
             gradTitle.innerHTML = '';
             gradTitle.appendChild(emoji);
-            gradTitle.appendChild(document.createTextNode(' ' + trans['graduation-title']));
+            gradTitle.appendChild(document.createTextNode(' ' + translationsForLang['graduation-title']));
         }
 
         const gradDesc = document.querySelector('.section-description-text');
-        if (gradDesc) gradDesc.textContent = trans['graduation-desc'];
+        if (gradDesc) gradDesc.textContent = translationsForLang['graduation-desc'];
 
-        updateProjectCard('#pharmcs-card', { title: trans['pharmcs-title'], badge: trans['pharmcs-badge'], summary: trans['pharmcs-summary'], desc: trans['pharmcs-desc'] });
-        updateProjectCard('#mart-card', { title: trans['mart-title'], badge: trans['mart-badge'], summary: trans['mart-summary'], desc: trans['mart-desc'] });
-        updateProjectCard('#ido-card', { title: trans['ido-title'], badge: trans['ido-badge'], summary: trans['ido-summary'], desc: trans['ido-desc'] });
+        updateProjectCardContent('#pharmcs-card', {
+            title: translationsForLang['pharmcs-title'],
+            badge: translationsForLang['pharmcs-badge'],
+            summary: translationsForLang['pharmcs-summary'],
+            description: translationsForLang['pharmcs-desc']
+        });
+        updateProjectCardContent('#mart-card', {
+            title: translationsForLang['mart-title'],
+            badge: translationsForLang['mart-badge'],
+            summary: translationsForLang['mart-summary'],
+            description: translationsForLang['mart-desc']
+        });
+        updateProjectCardContent('#ido-card', {
+            title: translationsForLang['ido-title'],
+            badge: translationsForLang['ido-badge'],
+            summary: translationsForLang['ido-summary'],
+            description: translationsForLang['ido-desc']
+        });
 
-        document.querySelectorAll('.tech-intro').forEach(intro => intro.textContent = trans['tech-intro']);
+        document.querySelectorAll('.tech-intro').forEach(intro => intro.textContent = translationsForLang['tech-intro']);
 
         const expTitle = document.querySelector('.experience-card .card-title');
         if (expTitle) {
             const emoji = expTitle.querySelector('.emoji');
             expTitle.innerHTML = '';
             expTitle.appendChild(emoji);
-            expTitle.appendChild(document.createTextNode(' ' + trans['experience-title']));
+            expTitle.appendChild(document.createTextNode(' ' + translationsForLang['experience-title']));
         }
 
         const experienceItems = document.querySelectorAll('.experience-item');
         if (experienceItems.length >= 4) {
-            updateExperienceItem(experienceItems[0], {
-                role: trans['senior-role'],
-                company: trans['c6-bank'],
-                date: trans['senior-date'],
-                desc: trans['senior-desc'],
+            updateExperienceItemDetails(experienceItems[0], {
+                role: translationsForLang['senior-role'],
+                company: translationsForLang['c6-bank'],
+                date: translationsForLang['senior-date'],
+                description: translationsForLang['senior-desc'],
                 points: [
-                    trans['senior-point-1'],
-                    trans['senior-point-2'],
-                    trans['senior-point-3'],
-                    trans['senior-point-4'],
-                    trans['senior-point-5'],
-                    trans['senior-point-6'],
-                    trans['senior-point-7'],
-                    trans['senior-point-8']
+                    translationsForLang['senior-point-1'],
+                    translationsForLang['senior-point-2'],
+                    translationsForLang['senior-point-3'],
+                    translationsForLang['senior-point-4'],
+                    translationsForLang['senior-point-5'],
+                    translationsForLang['senior-point-6'],
+                    translationsForLang['senior-point-7'],
+                    translationsForLang['senior-point-8']
                 ]
             });
-            updateExperienceItem(experienceItems[1], { role: trans['analyst-role'], company: trans['c6-bank'], date: trans['analyst-date'], desc: trans['analyst-desc'], points: [trans['analyst-point-1'], trans['analyst-point-2']] });
-            updateExperienceItem(experienceItems[2], { role: trans['junior-role'], company: trans['c6-bank'], date: trans['junior-date'], desc: trans['junior-desc'], points: [trans['junior-point-1'], trans['junior-point-2']] });
-            updateExperienceItem(experienceItems[3], { role: trans['intern-role'], company: trans['c6-bank'], date: trans['intern-date'], desc: trans['intern-desc'], points: [trans['intern-point-1'], trans['intern-point-2']] });
+            updateExperienceItemDetails(experienceItems[1], {
+                role: translationsForLang['analyst-role'],
+                company: translationsForLang['c6-bank'],
+                date: translationsForLang['analyst-date'],
+                description: translationsForLang['analyst-desc'],
+                points: [translationsForLang['analyst-point-1'], translationsForLang['analyst-point-2']]
+            });
+            updateExperienceItemDetails(experienceItems[2], {
+                role: translationsForLang['junior-role'],
+                company: translationsForLang['c6-bank'],
+                date: translationsForLang['junior-date'],
+                description: translationsForLang['junior-desc'],
+                points: [translationsForLang['junior-point-1'], translationsForLang['junior-point-2']]
+            });
+            updateExperienceItemDetails(experienceItems[3], {
+                role: translationsForLang['intern-role'],
+                company: translationsForLang['c6-bank'],
+                date: translationsForLang['intern-date'],
+                description: translationsForLang['intern-desc'],
+                points: [translationsForLang['intern-point-1'], translationsForLang['intern-point-2']]
+            });
         }
 
         const techStackTitle = document.querySelector('.tech-stack-card .card-title');
@@ -267,12 +301,12 @@
             const emoji = techStackTitle.querySelector('.emoji');
             techStackTitle.innerHTML = '';
             techStackTitle.appendChild(emoji);
-            techStackTitle.appendChild(document.createTextNode(' ' + trans['tech-stack-title']));
+            techStackTitle.appendChild(document.createTextNode(' ' + translationsForLang['tech-stack-title']));
         }
 
         const categoryKeys = ['languages', 'frameworks', 'tools', 'databases', 'methodologies'];
-        document.querySelectorAll('.tech-category-title').forEach((cat, index) => {
-            if (categoryKeys[index]) cat.textContent = trans[categoryKeys[index]];
+        document.querySelectorAll('.tech-category-title').forEach((categoryTitle, index) => {
+            if (categoryKeys[index]) categoryTitle.textContent = translationsForLang[categoryKeys[index]];
         });
 
         const recTitle = document.querySelector('.recognition-card .card-title');
@@ -280,19 +314,17 @@
             const emoji = recTitle.querySelector('.emoji');
             recTitle.innerHTML = '';
             recTitle.appendChild(emoji);
-            recTitle.appendChild(document.createTextNode(' ' + trans['recognition-title']));
+            recTitle.appendChild(document.createTextNode(' ' + translationsForLang['recognition-title']));
         }
 
         const recDesc = document.querySelector('.recognition-card .card-content p');
-        if (recDesc) recDesc.innerHTML = trans['recognition-desc'];
+        if (recDesc) recDesc.innerHTML = translationsForLang['recognition-desc'];
 
         const footer = document.querySelector('.footer p');
-        if (footer) footer.textContent = trans['footer'];
-
-        html.setAttribute('lang', lang);
+        if (footer) footer.textContent = translationsForLang['footer'];
     }
 
-    function updateProjectCard(selector, content) {
+    function updateProjectCardContent(selector, content) {
         const card = document.querySelector(selector);
         if (!card) return;
 
@@ -310,11 +342,11 @@
         const summary = card.querySelector('.project-summary');
         if (summary) summary.textContent = content.summary;
 
-        const desc = card.querySelector('.project-description');
-        if (desc) desc.textContent = content.desc;
+        const description = card.querySelector('.project-description');
+        if (description) description.textContent = content.description;
     }
 
-    function updateExperienceItem(item, content) {
+    function updateExperienceItemDetails(item, content) {
         const role = item.querySelector('.experience-role');
         if (role) role.textContent = content.role;
 
@@ -324,8 +356,8 @@
         const date = item.querySelector('.experience-date');
         if (date) date.textContent = content.date;
 
-        const desc = item.querySelector('.experience-details p');
-        if (desc) desc.innerHTML = content.desc;
+        const description = item.querySelector('.experience-details p');
+        if (description) description.innerHTML = content.description;
 
         const points = item.querySelector('.experience-points');
         if (points && content.points.length > 0) {
@@ -340,33 +372,25 @@
         }
     }
 
-    function updateLangToggle(currentLang) {
-        // CSS handles the slide animation based on data-lang attribute
-        // No JavaScript manipulation needed for the slide effect
-
-        // Update the aria-label for better accessibility
+    function updateLanguageToggleAccessibilityLabels(currentLanguage) {
         if (langToggle) {
-            langToggle.setAttribute('aria-label', `Switch to ${currentLang === 'en' ? 'Portuguese' : 'English'}`);
+            langToggle.setAttribute('aria-label', `Switch to ${currentLanguage === 'en' ? 'Portuguese' : 'English'}`);
         }
     }
 
-    function toggleLanguage() {
-        const currentLang = html.getAttribute('data-lang');
-        setLanguage(currentLang === 'pt' ? 'en' : 'pt');
+    function toggleBetweenLanguages() {
+        const currentLanguage = html.getAttribute('data-lang');
+        switchLanguageAndApplyTranslations(currentLanguage === 'pt' ? 'en' : 'pt');
     }
 
-    setLanguage(getCurrentLang());
+    switchLanguageAndApplyTranslations(retrieveStoredLanguage());
 
     if (langToggle) {
-        // Update aria-label on initialization
-        const currentLang = html.getAttribute('data-lang');
-        langToggle.setAttribute('aria-label', `Switch to ${currentLang === 'en' ? 'Portuguese' : 'English'}`);
-
-        langToggle.addEventListener('click', toggleLanguage);
+        langToggle.addEventListener('click', toggleBetweenLanguages);
         langToggle.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                toggleLanguage();
+                toggleBetweenLanguages();
             }
         });
         langToggle.setAttribute('tabindex', '0');
