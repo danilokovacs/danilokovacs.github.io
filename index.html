@@ -1,85 +1,334 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danilo Kovacs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <div>
-        <a href="https://github.com/danilokovacs">
-            <img class="photo" src="./images/black_and_white_photo.jpg" alt="Esse sou eu!" href="/danilo">
-        </a>
-    </div>
-    <h1>Danilo Kovacs</h1>
-    <a href="https://github.com/danilokovacs">
-        <p>Github @danilokovacs</p>
-    </a>
-    <a href="https://linkedin.com/in/danilokovacs">
-        <p>Linkedin Danilo Kovacs</p>
-    </a>
-        <div class="card">
-            <h1>💡 Projetos</h1>
-            <h2>Aqui relato os projetos que ja participei e as competências desenvolvidas de 
-                <span class="small_thin">2021-2023</span>
-                 em minha experiência como 
-                 <span class="highlight">Engenheiro de Software</span>.
-            </h2>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light mode">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+
+    <button id="lang-toggle" class="lang-toggle" aria-label="Toggle language">
+        <svg class="lang-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>
+        <span class="lang-text" data-lang="pt">EN</span>
+        <span class="lang-text" data-lang="en">PT</span>
+    </button>
+    <header class="header">
+        <div class="profile-container">
+            <a href="https://github.com/danilokovacs" class="profile-link" aria-label="View my GitHub profile">
+                <img class="profile-photo" src="./images/black_and_white_photo.jpg" alt="Danilo Kovacs - Profile photo">
+            </a>
         </div>
+        <div class="profile-info">
+            <h1 class="profile-name">Danilo Kovacs</h1>
+            <nav class="social-links">
+                <a href="https://github.com/danilokovacs" class="social-link" aria-label="GitHub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    <span>@danilokovacs</span>
+                </a>
+                <a href="https://linkedin.com/in/danilokovacs" class="social-link" aria-label="LinkedIn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                        <rect x="2" y="9" width="4" height="12"></rect>
+                        <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                    <span>Danilo Kovacs</span>
+                </a>
+            </nav>
+        </div>
+    </header>
 
-      <div class="card">    
-        <h1>🧪Pharmcs</h1>
-        <p class="highlight">Projeto de Pesquisa e Inovacão do 1 SEM - SPTECH School 👨‍🎓 </p>
-        <h3>
-            Pharmcs é uma solução para o monitoramento de umidade e temperatura de geladeiras farmacêuticas.   
-        </h3>
-        <h3>
-            Foi utilizado o Arduino para realizar o monitoramento simulando um sensor acoplado as geladeiras onde são realizadas as medições de temperatura e umidade e apartir disso ter alertas e notificações para o cliente. 
-        </h3>
-        <h3>
-            <span class="highlight">Git</span> para versionamento de código, <span class="highlight">Github</span> para armazenamento do código em um repositório remoto, <span class="highlight">C++</span> para escrita dos scripts do Arduino, <span class="highlight">MySQL</span>  como banco de dados, <span class="highlight">HTML / CSS / JavaScript</span> para elaboração de site institucional com login e cadastro para acesso á um dashboard com <span class="highlight">métricas e alertas</span> consumindo os dados via api em <span class="highlight">Node.js</span>, realizando a gestão do projeto com a metodologia ágil <span class="highlight">Scrum e Kanban</span> com sprints semanais organizadas no <span class="highlight">Notion</span>.
-        </h3>
-      </div>
+    <main class="main-content">
+        <section class="intro-card">
+            <h2 class="section-title">
+                <span class="emoji">💡</span> Sobre Mim
+            </h2>
+            <p class="section-description">
+                Engenheiro de software desde 2022, especializado em Kotlin e Java. Experiência completa no ciclo de vida de aplicações, desde a concepção até produção em ambientes críticos do setor financeiro.
+            </p>
+            <p class="section-description">
+                Desenvolvo sistemas que atendem ~30M de clientes, focando em arquiteturas distribuídas, escalabilidade, resiliência e alta disponibilidade para operações financeiras.
+            </p>
+            <p class="section-description">
+                Combino entendimento de negócio com expertise em observabilidade e infraestrutura para criar soluções eficazes e manuteníveis.
+            </p>
+        </section>
 
-      <div class="card">    
-        <h1>📊Mart</h1>
-        <p class="highlight">Projeto de Pesquisa e Inovacão do 2 SEM - SPTECH School 👨‍🎓 </p>
-        <h3>
-            Mart é uma solução para o monitoramento de totens de fast food.   
-        </h3>
-        <h3>
-            Foi utilizado instâncias de EC2 na AWS para captura dos dados de CPU, Memória RAM, Disco e Sistema para simulação de totens de autoatendimento e apartir disso ter alertas e notificações para o cliente. 
-        </h3>
-        <h3>
-            <span class="highlight">Git</span> para versionamento de código, <span class="highlight">Github</span> para armazenamento do código em um repositório remoto, <span class="highlight">Java</span> como linguagem de programação para aplicação <span class="highlight">CLI</span> e com <span class="highlight">GUI</span> para coleta dos dados, scripts <span class="highlight">SHELL</span> para baixar a aplicação do repositorio remotamente e levantar os containers a partir do <span class="highlight">Docker</span>, <span class="highlight">MySQL</span> como banco de dados local para resiliência e <span class="highlight">SQL Server</span> como banco de dados na nuvem <span class="highlight">Azure</span>, <span class="highlight">HTML / CSS / JavaScript</span> para elaboração de site institucional com login e cadastro para acesso á um dashboard com <span class="highlight">métricas e alertas</span> consumindo os dados via api em <span class="highlight">Node.js</span>, realizando a gestão do projeto com a metodologia ágil <span class="highlight">Scrum e Kanban</span> com sprints semanais organizadas no <span class="highlight">Planner</span>.
-        </h3>
-      </div>
+      <article class="tech-stack-card">
+        <h3 class="card-title"><span class="emoji">⚡</span> Tech Stack</h3>
+        <div class="tech-stack-content">
+            <div class="tech-category">
+                <h4 class="tech-category-title">Linguagens</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Kotlin</span>
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">JavaScript</span>
+                    <span class="tech-tag">Go</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h4 class="tech-category-title">Frameworks e Bibliotecas</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Spring</span>
+                    <span class="tech-tag">Javalin</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">React</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h4 class="tech-category-title">Ferramentas</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">BitBucket</span>
+                    <span class="tech-tag">Rundeck</span>
+                    <span class="tech-tag">Splunk</span>
+                    <span class="tech-tag">Grafana</span>
+                    <span class="tech-tag">Terraform</span>
+                    <span class="tech-tag">Atlantis</span>
+                    <span class="tech-tag">JIRA</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h4 class="tech-category-title">Banco de Dados</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">ElasticSearch</span>
+                </div>
+            </div>
+            <div class="tech-category">
+                <h4 class="tech-category-title">Metodologias e Práticas</h4>
+                <div class="tech-tags">
+                    <span class="tech-tag">Scrum</span>
+                    <span class="tech-tag">Kanban</span>
+                    <span class="tech-tag">TDD</span>
+                    <span class="tech-tag">DDD</span>
+                    <span class="tech-tag">CI/CD</span>
+                    <span class="tech-tag">Git Flow</span>
+                </div>
+            </div>
+        </div>
+      </article>
 
-      <div class="card">    
-        <h1>📌iDO</h1>
-        <p class="highlight">Projeto de Pesquisa e Inovacão do 3 SEM - SPTECH School 👨‍🎓 </p>
-        <h3>
-            iDo é uma solução para gerenciamento de tarefas com implementações de metodologias que auxiliam no processo de priorização e foco na conclusão de tarefas.   
-        </h3>
-        <h3>
-            Foi utilizado metodologias como Pomodoro e Matriz de Eisenhower para elaborar um sistema que priorizasse a tarefa na criação, para que o usuário pudesse ter uma melhor decisão do que focar para atuar, nesta atuação usando a técnica de Pomodoro que facilita no foco para execução de tarefas.
-        </h3>
-        <h3>
-            <span class="highlight">Git</span> para versionamento de código, <span class="highlight">Github</span> para armazenamento do código em um repositório remoto, <span class="highlight">Java</span> como linguagem de programação para aplicação microsservíço <span class="highlight">REST API</span> elaborada com framework <span class="highlight">Spring</span> para maior produtividade no desenvolvimento e com implementações para notificações com <span class="highlight">Twilio</span> e <span class="highlight">Java Mail</span>, <span class="highlight">Hibernate</span> como banco de dados de desenvolvimento, e <span class="highlight">SQL Server</span> como banco de dados na nuvem <span class="highlight">Azure</span> armazenando as credenciais dos usuários e suas tarefas, <span class="highlight">React JS</span> para elaboração de site institucional com login e cadastro para acesso á uma plataforma com modos de visualização para tarefas, personalização de perfil com foto e biografia e gráficos para análise das prioridades das tarefas, realizando a gestão do projeto com a metodologia ágil <span class="highlight">Scrum e Kanban</span> com sprints semanais organizadas no <span class="highlight">Planner</span>.
-        </h3>
-      </div>
+      <article class="experience-card">
+        <h3 class="card-title"><span class="emoji">👨‍💻</span> Experiência Profissional</h3>
+        <div class="experience-list">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h4 class="experience-role">Senior Tech Analyst</h4>
+                    <span class="experience-company">C6 Bank</span>
+                    <span class="experience-date">jan 2026 - presente</span>
+                </div>
+                <div class="experience-details">
+                    <p>Liderança técnica na squad de <span class="highlight">Cartões – Faturas, Parcelamentos e Anuidade</span>, responsável por soluções críticas que impactam toda a base de clientes. Arquitetura de sistemas distribuídos, estratégias de resiliência e governança de eventos para alta disponibilidade em operações financeiras de escala.</p>
+                    <ul class="experience-points">
+                        <li>Implementação end-to-end de novos métodos de pagamento impactando milhões de clientes com cartões.</li>
+                        <li>Desenvolvimento de soluções para ajustes contábeis e regulatórios de parcelamentos.</li>
+                        <li>Arquitetura de cache distribuído via arquivos em Go para otimização de performance e redução de latência.</li>
+                        <li>Implementação de locks de dados baseados em eventos e mecanismos de reprocessamento para consistência em sistemas distribuídos.</li>
+                        <li>Liderança em troubleshooting e salas de crise, com participação ativa em oncall.</li>
+                        <li>Mapeamento e implementação de melhorias para resiliência das informações de fatura.</li>
+                        <li>Definição de métodos de pagamento orientados a eventos com arquitetura de emissão e consumo para integração entre domínios.</li>
+                        <li>Controle de campanhas de taxas com estratégias de cache e performance para escalar em períodos de alta demanda.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h4 class="experience-role">Tech Analyst</h4>
+                    <span class="experience-company">C6 Bank</span>
+                    <span class="experience-date">abr 2025 - jan 2026 · 10 meses</span>
+                </div>
+                <div class="experience-details">
+                    <p>Desenvolvimento e evolução de APIs transacionais na squad de <span class="highlight">Cartões – Faturas, Parcelamentos e Anuidade</span>, com práticas de resiliência, idempotência, retentativas assíncronas e estratégias de armazenamento para alta disponibilidade e performance.</p>
+                    <ul class="experience-points">
+                        <li>Propostas de HLD para novos desenvolvimentos, melhoria de performance e suporte a testes de performance, qualidade e integração.</li>
+                        <li>Acompanhamento e triagem de incidentes, com elaboração de soluções para mitigar débitos técnicos e priorizar entregas.</li>
+                        <li>Geração de métricas para apoiar decisões de negócio e entregas faseadas com escalabilidade.</li>
+                    </ul>
+                </div>
+            </div>
 
-      <div class="card">
-        <h1>👨‍💻 Minhas experiências</h1>
-        <h3>Experiência com microsservíços desenvolvidos com linguagem orientada a objeto Kotlin / Java, utilizando framework Spring para construção de APIs REST, com mapeamento de entidades para bancos de dados relacionais, desenvolvimento orientado a testes (TDD), escrevendo testes com JUnit, Mockito e Mockk, arquitetura seguindo conceito do DDD com o foco no domínio do negócio, documentações de API (Swagger), métodologias ágeis como Scrum e Kanban com a ferramenta JIRA, experiência com a linguagem SQL para consulta de dados, acompanhamento de métricas no Grafana e rastreio de logs da aplicação com Graylog, infraestrutura como código Terraform, esteira de aplicação com o Concourse com as práticas de CI/CD e GIT flow.</h3>
-      </div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h4 class="experience-role">Junior Tech Analyst</h4>
+                    <span class="experience-company">C6 Bank</span>
+                    <span class="experience-date">jul 2023 - mar 2025 · 1 ano 9 meses</span>
+                </div>
+                <div class="experience-details">
+                    <p>Desenvolvimento de APIs transacionais na squad de <span class="highlight">Cartões – Faturas e Parcelamentos</span>, com práticas de resiliência, processos assíncronos, idempotência e PLD.</p>
+                    <ul class="experience-points">
+                        <li>Monitoramento transacional para geração de alertas e acompanhamento via Splunk e Grafana.</li>
+                        <li>Internalização de informações para alta disponibilidade e quebra de domínios para priorizar performance em requisições de backoffice.</li>
+                    </ul>
+                </div>
+            </div>
 
-      <div class="card">
-        <h1>🏆 Reconhecimentos</h1>
-        <h3>Após 11 meses de estágio fui reconhecido com o prêmio <span class="highlight">Catálise</span>, que é um programa de reconhecimento do C6 Bank. Ele funciona como um agradecimento aos CSixers que foram um passo além de suas atribuições de trabalho e se destacaram no exercício dos valores do banco.</h3>
-      </div>
+            <div class="experience-item">
+                <div class="experience-header">
+                    <h4 class="experience-role">Estagiário em Engenharia de Software</h4>
+                    <span class="experience-company">C6 Bank</span>
+                    <span class="experience-date">jan 2022 - jun 2023 · 1 ano 6 meses</span>
+                </div>
+                <div class="experience-details">
+                    <p>Internalização de APIs para domínios de fatura, transações e timeline na squad de <span class="highlight">Core Cards</span>.</p>
+                    <ul class="experience-points">
+                        <li>Elaboração de mecânica para busca periódica de informações de fatura a partir de eventos.</li>
+                        <li>Melhorias na plataforma com prática de FinOps e ciclo de vida dos dados, com migrações para servidores otimizados.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </article>
+
+      <section class="section-header">
+            <h2 class="section-title-text">
+                <span class="emoji">🎓</span> Graduação / Projetos Universitários
+            </h2>
+            <p class="section-description-text">
+                Projetos acadêmicos da SPTECH School, aplicando conceitos de engenharia de software e metodologias ágeis.
+            </p>
+        </section>
+
+      <article class="project-card" id="pharmcs-card">
+        <div class="project-header">
+            <h3 class="project-title"><span class="emoji">🧪</span> Pharmcs</h3>
+            <span class="project-badge">1º SEM - SPTECH School 👨‍🎓</span>
+        </div>
+        <div class="project-content">
+            <p class="project-summary">
+                Pharmcs é uma solução para o monitoramento de umidade e temperatura de geladeiras farmacêuticas.
+            </p>
+            <p class="project-description">
+                Monitoramento via Arduino com simulação de sensores acoplados às geladeiras, gerando medições de temperatura e umidade com alertas e notificações em tempo real.
+            </p>
+            <div class="tech-stack">
+                <p class="tech-intro">Tecnologias utilizadas:</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Git</span>
+                    <span class="tech-tag">GitHub</span>
+                    <span class="tech-tag">C++</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">HTML/CSS/JavaScript</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Scrum</span>
+                    <span class="tech-tag">Kanban</span>
+                    <span class="tech-tag">Notion</span>
+                </div>
+            </div>
+        </div>
+      </article>
+
+      <article class="project-card" id="mart-card">
+        <div class="project-header">
+            <h3 class="project-title"><span class="emoji">📊</span> Mart</h3>
+            <span class="project-badge">2º SEM - SPTECH School 👨‍🎓</span>
+        </div>
+        <div class="project-content">
+            <p class="project-summary">
+                Mart é uma solução para o monitoramento de totens de fast food.
+            </p>
+            <p class="project-description">
+                Monitoramento via EC2 na AWS capturando dados de CPU, RAM, disco e sistema para simulação de totens de autoatendimento com alertas e notificações em tempo real.
+            </p>
+            <div class="tech-stack">
+                <p class="tech-intro">Tecnologias utilizadas:</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Git</span>
+                    <span class="tech-tag">GitHub</span>
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">CLI/GUI</span>
+                    <span class="tech-tag">Shell</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">Azure</span>
+                    <span class="tech-tag">HTML/CSS/JavaScript</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">Scrum</span>
+                    <span class="tech-tag">Kanban</span>
+                    <span class="tech-tag">Planner</span>
+                </div>
+            </div>
+        </div>
+      </article>
+
+      <article class="project-card" id="ido-card">
+        <div class="project-header">
+            <h3 class="project-title"><span class="emoji">📌</span> iDO</h3>
+            <span class="project-badge">3º SEM - SPTECH School 👨‍🎓</span>
+        </div>
+        <div class="project-content">
+            <p class="project-summary">
+                iDo é uma solução para gerenciamento de tarefas com implementações de metodologias que auxiliam no processo de priorização e foco na conclusão de tarefas.
+            </p>
+            <p class="project-description">
+                Sistema de gerenciamento de tarefas integrando metodologias Pomodoro e Matriz de Eisenhower para priorização automática e técnicas de foco na execução.
+            </p>
+            <div class="tech-stack">
+                <p class="tech-intro">Tecnologias utilizadas:</p>
+                <div class="tech-tags">
+                    <span class="tech-tag">Git</span>
+                    <span class="tech-tag">GitHub</span>
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">Spring</span>
+                    <span class="tech-tag">REST API</span>
+                    <span class="tech-tag">Twilio</span>
+                    <span class="tech-tag">Java Mail</span>
+                    <span class="tech-tag">Hibernate</span>
+                    <span class="tech-tag">SQL Server</span>
+                    <span class="tech-tag">Azure</span>
+                    <span class="tech-tag">React JS</span>
+                    <span class="tech-tag">Scrum</span>
+                    <span class="tech-tag">Kanban</span>
+                    <span class="tech-tag">Planner</span>
+                </div>
+            </div>
+        </div>
+      </article>
+
+      <article class="recognition-card">
+        <h3 class="card-title"><span class="emoji">🏆</span> Reconhecimentos</h3>
+        <div class="card-content">
+            <p>Reconhecido com o prêmio <span class="highlight">Catálise</span> após 11 meses de estágio, programa do C6 Bank que valoriza colaboradores que se destacam além das atribuições de trabalho.</p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 Danilo Kovacs. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="theme.js"></script>
 </body>
 </html>
