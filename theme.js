@@ -81,7 +81,15 @@
             'senior-role': 'Senior Tech Analyst',
             'c6-bank': 'C6 Bank',
             'senior-date': 'Jan 2026 - Present',
-            'senior-desc': 'Acting in Card squad – Invoices, Installments and Annual Fee. Distributed systems architecture, resilience strategies and event governance for high availability in financial operations.',
+            'senior-desc': 'Acting in the <span class="highlight">Cards – Invoices, Installments and Annual Fee</span> squad, responsible for critical solutions impacting the entire customer base. Distributed systems architecture, resilience strategies and event governance for high availability in financial operations at scale.',
+            'senior-point-1': 'End-to-end implementation of new payment methods impacting millions of card customers.',
+            'senior-point-2': 'Development of solutions for accounting and regulatory adjustments of installments.',
+            'senior-point-3': 'Architecture of distributed cache via files in Go for performance optimization and latency reduction.',
+            'senior-point-4': 'Implementation of event-based data locks and reprocessing mechanisms for consistency in distributed systems.',
+            'senior-point-5': 'Participation in troubleshooting and crisis rooms, with on-call duties.',
+            'senior-point-6': 'Mapping and implementation of improvements for invoice information resilience.',
+            'senior-point-7': 'Definition of event-driven payment methods with emission and consumption architecture for integration between domains.',
+            'senior-point-8': 'Control of fee campaigns with cache and performance strategies to scale during high demand periods.',
             'analyst-role': 'Tech Analyst',
             'analyst-date': 'Apr 2025 - Jan 2026 · 10 months',
             'analyst-desc': 'Development and evolution of transactional APIs in Card squad – Invoices, Installments and Annual Fee, with resilience, idempotency, async retries and storage strategies.',
@@ -132,7 +140,15 @@
             'senior-role': 'Senior Tech Analyst',
             'c6-bank': 'C6 Bank',
             'senior-date': 'jan 2026 - presente',
-            'senior-desc': 'Atuação na squad de Cartões – Faturas, Parcelamentos e Anuidade. Arquitetura de sistemas distribuídos, estratégias de resiliência e governança de eventos para alta disponibilidade em operações financeiras de escala.',
+            'senior-desc': 'Atuação na squad de <span class="highlight">Cartões – Faturas, Parcelamentos e Anuidade</span>, responsável por soluções críticas que impactam toda a base de clientes. Arquitetura de sistemas distribuídos, estratégias de resiliência e governança de eventos para alta disponibilidade em operações financeiras de escala.',
+            'senior-point-1': 'Implementação end-to-end de novos métodos de pagamento impactando milhões de clientes com cartões.',
+            'senior-point-2': 'Desenvolvimento de soluções para ajustes contábeis e regulatórios de parcelamentos.',
+            'senior-point-3': 'Arquitetura de cache distribuído via arquivos em Go para otimização de performance e redução de latência.',
+            'senior-point-4': 'Implementação de locks de dados baseados em eventos e mecanismos de reprocessamento para consistência em sistemas distribuídos.',
+            'senior-point-5': 'Participação em troubleshooting e salas de crise, com atuação em oncall.',
+            'senior-point-6': 'Mapeamento e implementação de melhorias para resiliência das informações de fatura.',
+            'senior-point-7': 'Definição de métodos de pagamento orientados a eventos com arquitetura de emissão e consumo para integração entre domínios.',
+            'senior-point-8': 'Controle de campanhas de taxas com estratégias de cache e performance para escalar em períodos de alta demanda.',
             'analyst-role': 'Tech Analyst',
             'analyst-date': 'abr 2025 - jan 2026 · 10 meses',
             'analyst-desc': 'Desenvolvimento e evolução de APIs transacionais na squad de Cartões – Faturas, Parcelamentos e Anuidade, com práticas de resiliência, idempotência, retentativas assíncronas e estratégias de armazenamento.',
@@ -225,7 +241,22 @@
 
         const experienceItems = document.querySelectorAll('.experience-item');
         if (experienceItems.length >= 4) {
-            updateExperienceItem(experienceItems[0], { role: trans['senior-role'], company: trans['c6-bank'], date: trans['senior-date'], desc: trans['senior-desc'], points: [] });
+            updateExperienceItem(experienceItems[0], {
+                role: trans['senior-role'],
+                company: trans['c6-bank'],
+                date: trans['senior-date'],
+                desc: trans['senior-desc'],
+                points: [
+                    trans['senior-point-1'],
+                    trans['senior-point-2'],
+                    trans['senior-point-3'],
+                    trans['senior-point-4'],
+                    trans['senior-point-5'],
+                    trans['senior-point-6'],
+                    trans['senior-point-7'],
+                    trans['senior-point-8']
+                ]
+            });
             updateExperienceItem(experienceItems[1], { role: trans['analyst-role'], company: trans['c6-bank'], date: trans['analyst-date'], desc: trans['analyst-desc'], points: [trans['analyst-point-1'], trans['analyst-point-2']] });
             updateExperienceItem(experienceItems[2], { role: trans['junior-role'], company: trans['c6-bank'], date: trans['junior-date'], desc: trans['junior-desc'], points: [trans['junior-point-1'], trans['junior-point-2']] });
             updateExperienceItem(experienceItems[3], { role: trans['intern-role'], company: trans['c6-bank'], date: trans['intern-date'], desc: trans['intern-desc'], points: [trans['intern-point-1'], trans['intern-point-2']] });
@@ -310,9 +341,13 @@
     }
 
     function updateLangToggle(currentLang) {
-        document.querySelectorAll('.lang-text').forEach(text => {
-            text.style.display = text.getAttribute('data-lang') === currentLang ? 'none' : 'block';
-        });
+        // CSS handles the slide animation based on data-lang attribute
+        // No JavaScript manipulation needed for the slide effect
+
+        // Update the aria-label for better accessibility
+        if (langToggle) {
+            langToggle.setAttribute('aria-label', `Switch to ${currentLang === 'en' ? 'Portuguese' : 'English'}`);
+        }
     }
 
     function toggleLanguage() {
@@ -323,6 +358,10 @@
     setLanguage(getCurrentLang());
 
     if (langToggle) {
+        // Update aria-label on initialization
+        const currentLang = html.getAttribute('data-lang');
+        langToggle.setAttribute('aria-label', `Switch to ${currentLang === 'en' ? 'Portuguese' : 'English'}`);
+
         langToggle.addEventListener('click', toggleLanguage);
         langToggle.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
