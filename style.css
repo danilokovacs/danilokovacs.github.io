@@ -188,7 +188,7 @@ body {
 
 html[data-lang="en"] .lang-indicator,
 [data-lang="en"] .lang-indicator {
-    transform: translateX(3.75rem);
+    transform: translateX(3.5rem);
 }
 
 html[data-lang="pt"] .lang-option[data-lang="pt"],
@@ -699,15 +699,11 @@ html:not([data-lang="en"]) .lang-option[data-lang="en"] {
     }
 
     .lang-toggle {
-        width: 6.75rem;
-        height: 2.625rem;
         top: 0.9375rem;
         right: 4.0625rem;
     }
 
     .lang-indicator {
-        width: 2.75rem;
-        height: 2rem;
         border-radius: 1rem;
     }
 
